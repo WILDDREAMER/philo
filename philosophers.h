@@ -17,19 +17,24 @@ typedef struct 		s_data{
 }               	t_data;
 
 typedef struct 		s_fork{
-	int				id;
 	int				holder;
 }					t_fork;
 
 typedef struct 		s_philosophers{
-	struct s_data			*data;
 	struct s_philosophers	*next;
 	struct s_philosophers	*prev;
-	int						id;
 	int						index;
-	struct s_fork			fork;
+	int						status;
+	struct s_fork			*fork;
 	int						last_meal;
 }               	t_philosophers;
+
+typedef struct		s_struct{
+	pthread_mutex_t			mutex;
+	struct s_data			*data;
+	unsigned long			entry_time;
+	struct s_philosophers	*current_philo;
+}					t_struct;
 
 int			ft_isdigit(int c);
 size_t		ft_strlen(const char *str);
