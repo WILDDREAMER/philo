@@ -17,7 +17,7 @@ typedef struct 		s_data{
 }               	t_data;
 
 typedef struct 		s_fork{
-	int				holder;
+	int				status;
 }					t_fork;
 
 typedef struct 		s_philosophers{
