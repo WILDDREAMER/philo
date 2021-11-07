@@ -5,7 +5,7 @@ SRC = helpers.c main.c
 all : $(NAME)
 
 $(NAME):$(SRC)
-	gcc $(SRC) -pthread -o philo
+	gcc $(SRC) -pthread -fsanitize=address -o philo
 
 clean:
 	rm -rf philo.dSYM
