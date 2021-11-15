@@ -21,7 +21,7 @@ typedef struct 		s_philosophers{
 	struct s_philosophers	*prev;
 	int						index;
 	int						status;
-	int						fork;
+	pthread_mutex_t			fork;
 	unsigned long			last_meal;
 	struct s_data			*data;
 	unsigned long			entry_time;
