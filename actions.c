@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 18:00:19 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/11/16 18:22:19 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/11/16 18:59:31 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,14 @@ int	check_death(t_philosopher *philo)
 	status = philo->status;
 	time = get_time_mls() - philo->entry_time;
 	if (time - philo->last_meal > philo->data->time_to_die)
+	{
 		if (status != 1)
+		{
+			printf("\e[0;31m%lu: philosopher %d died\e[0;37m\n", get_time_mls()
+				- philo->entry_time, philo->index);
 			return (1);
+		}
+	}
 	return (0);
 }
 
