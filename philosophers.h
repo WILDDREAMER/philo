@@ -25,6 +25,7 @@ typedef struct 		s_philosophers{
 	unsigned long			last_meal;
 	struct s_data			*data;
 	unsigned long			entry_time;
+	int 					meals;
 }               	t_philosopher;
 
 int			ft_isdigit(int c);
