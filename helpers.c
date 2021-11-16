@@ -1,55 +1,82 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/16 18:04:06 by ozakkare          #+#    #+#             */
+/*   Updated: 2021/11/16 18:28:09 by ozakkare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./philosophers.h"
 
-int	ft_isdigit(int c)
+void	get_data(t_data *data, int argc, char **argv)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
+	data->number_of_philosophers = ft_atoi(argv[1]);
+	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_eat = ft_atoi(argv[3]);
+	data->time_to_sleep = ft_atoi(argv[4]);
+	data->meals = -1;
+	if (argc == 6)
+		data->meals = ft_atoi(argv[5]);
 }
 
-size_t	ft_strlen(const char *str)
+void	add_node(t_philosopher **curr, t_philosopher **new, int i)
 {
-	int	i;
+	if (!i)
+	{
+		(*curr) = (*new);
+		(*curr)->next = (*new);
+		(*curr)->prev = (*new);
+	}
+	else
+	{
+		(*new)->next = (*curr)->next;
+		(*curr)->next = (*new);
+		(*new)->prev = (*curr);
+		(*curr) = (*new);
+	}
+}
 
-	i = 0;
-	while (str[i])
-		i++;
+unsigned long	get_time_mls(void)
+{
+	struct timeval	time;
+	unsigned long	i;
+
+	gettimeofday(&time, NULL);
+	i = (time.tv_sec * 1000) + (time.tv_usec / 1000);
 	return (i);
 }
 
-void	log_error(char *msg)
+void	ft_usleep(unsigned long time)
 {
-	write(2, msg, ft_strlen(msg));
+	unsigned long	current_time;
+
+	current_time = get_time_mls();
+	usleep((time * 1e3) - 5000);
+	while (get_time_mls() - current_time < time)
+		continue ;
 }
 
-static int	whitespace(char c)
+void	print(int status, t_philosopher *philo)
 {
-	if (c == '\n' || c == '\v' || c == '\f' || c == '\t' || c == '\r')
-		return (1);
-	if (c == ' ')
-		return (1);
-	return (0);
-}
-
-long long	ft_atoi(const char *str)
-{
-	int				i;
-	int				negativity;
-	unsigned long	result;
-
-	result = 0;
-	negativity = 1;
-	i = 0;
-	while (whitespace(str[i]))
-		i++;
-	if (str[i] == '-')
-		negativity = -1;
-	if (str[i] == '+' || str[i] == '-')
-		i++;
-	while (str[i] >= 48 && str[i] <= 57)
+	pthread_mutex_lock(&philo->data->mutex);
+	if (status == 1)
 	{
-		result = result * 10 + (str[i] - 48);
-		i++;
+		printf("%lu: %d has taken a fork\n", get_time_mls()
+			- philo->entry_time, philo->index);
+		printf("%lu: %d has taken a fork\n", get_time_mls()
+			- philo->entry_time, philo->index);
+		printf("%lu: %d is eating\n", get_time_mls()
+			- philo->entry_time, philo->index);
 	}
-	return (result * negativity);
+	else if (status == 2)
+		printf("%lu: %d is sleeping\n", get_time_mls()
+			- philo->entry_time, philo->index);
+	else if (status == 3)
+		printf("%lu: %d is thinking\n", get_time_mls()
+			- philo->entry_time, philo->index);
+	pthread_mutex_unlock(&philo->data->mutex);
 }

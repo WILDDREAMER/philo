@@ -1,11 +1,11 @@
 NAME = philo
 
-SRC = helpers.c main.c
+SRC = helpers.c main.c base.c actions.c
 
 all : $(NAME)
 
 $(NAME):$(SRC)
-	gcc $(SRC) -pthread -fsanitize=address -o philo
+	gcc $(SRC) -Wall -Wextra -Werror -pthread -fsanitize=address -o philo
 
 clean:
 	rm -rf philo.dSYM
