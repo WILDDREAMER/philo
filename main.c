@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 18:05:59 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/11/16 18:55:24 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:17:18 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ int	main(int argc, char **argv)
 		{
 			++philos_checked;
 			philo->meals = -1;
+			if (philos_checked == data.number_of_philosophers)
+				return (0);
 		}
-		if (philos_checked == data.number_of_philosophers)
-			return (0);
 		usleep(1000);
 	}
 	return (0);

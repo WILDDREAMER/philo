@@ -3,9 +3,8 @@ NAME = philo
 SRC = helpers.c main.c base.c actions.c
 
 all : $(NAME)
-
 $(NAME):$(SRC)
-	gcc $(SRC) -Wall -Wextra -Werror -pthread -fsanitize=address -o philo
+	gcc $(SRC) -Wall -Wextra -Werror -pthread -o $(NAME)
 
 clean:
 	rm -rf philo.dSYM

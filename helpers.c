@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 18:04:06 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/11/16 18:28:09 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/11/17 18:01:49 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,9 @@ void	print(int status, t_philosopher *philo)
 	else if (status == 3)
 		printf("%lu: %d is thinking\n", get_time_mls()
 			- philo->entry_time, philo->index);
-	pthread_mutex_unlock(&philo->data->mutex);
+	else if (status == 4)
+		printf("\e[0;31m%lu: philosopher %d died\e[0;37m\n", get_time_mls()
+			- philo->entry_time, philo->index);
+	if (status != 4)
+		pthread_mutex_unlock(&philo->data->mutex);
 }

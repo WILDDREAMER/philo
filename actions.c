@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 18:00:19 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/11/16 18:59:31 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/11/17 17:47:05 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int	check_death(t_philosopher *philo)
 	{
 		if (status != 1)
 		{
-			printf("\e[0;31m%lu: philosopher %d died\e[0;37m\n", get_time_mls()
-				- philo->entry_time, philo->index);
+			print(4, philo);
 			return (1);
 		}
 	}
